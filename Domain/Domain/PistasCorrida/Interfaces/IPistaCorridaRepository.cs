@@ -4,12 +4,12 @@ using System.Threading.Tasks;
 
 namespace Domain.PistasCorrida.Interfaces
 {
-    public interface IPistaCorridaRepository : IRepository
+    public interface IPistaCorridaRepository : IRepository<PistaCorrida>
     {
         Task<PistaCorrida?> Get(int id);
-        Task<PistaCorrida?> GetAggragate(int id);
-        Task<List<PistaCorrida>> GetAll(Filter filters);
+        Task<List<PistaCorrida>> GetAll();
         Task Delete(int id);
-        Task<PistaCorrida> Save(PistaCorrida registry);
+        Task<PistaCorrida> Save(PistaCorrida entity);
+        Task<List<PistaCorrida>> UsedRacesTrack();
     }
 }

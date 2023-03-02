@@ -3,12 +3,11 @@ using System.Threading.Tasks;
 
 namespace Domain
 {
-    public interface IRepository
+    public interface IRepository<T>
     {
-        Task<BaseEntity> Get(int id);
-        Task<BaseEntity> GetAggragate(int id);
-        Task<List<BaseEntity>> GetAll(Filter filters);
+        Task<T> Get(int id);        
+        Task<List<T>> GetAll();
         Task Delete(int id);
-        Task<BaseEntity> Save(BaseEntity registry);
+        Task<T> Save(T entity);
     }
 }

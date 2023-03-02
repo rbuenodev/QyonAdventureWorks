@@ -1,4 +1,6 @@
-﻿namespace Domain.Competidores.Entities
+﻿using System;
+
+namespace Domain.Competidores.Entities
 {
     public class Competidor : BaseEntity
     {
@@ -7,5 +9,37 @@
         public decimal TemperaturaMediaCorpo { get; set; }
         public decimal Peso { get; set; }
         public decimal Altura { get; set; }
+
+        private bool Validate()
+        {
+            var errors = "";
+            if (TemperaturaMediaCorpo < 36 || TemperaturaMediaCorpo > 38)
+                errors = "Verifique a temperatura; ";
+
+            if (Peso <= 0)
+                errors += "Peso deve ser maior que zero; ";
+
+            if (Altura <= 0)
+                errors += "Altura deve ser maior que zero; ";
+
+            if (string.IsNullOrEmpty(Sexo))
+                errors += "Sexo não pode ser vazio ;";
+            else if (Sexo != "M" || Sexo != "F" || Sexo != "O")
+                errors += "Sexo deve ser igual a M, F ou O";
+
+            if (string.IsNullOrEmpty(Nome))
+                errors += "Nome não pode ser vazio";
+
+            if (!string.IsNullOrEmpty(errors))
+                throw new Exception(errors);
+
+
+            return true;
+        }
+
+        public bool IsValid()
+        {
+            return Validate();
+        }
     }
 }

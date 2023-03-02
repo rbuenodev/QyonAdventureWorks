@@ -4,12 +4,12 @@ using System.Threading.Tasks;
 
 namespace Domain.HistoricosCorrida.Interfaces
 {
-    public interface IHistoricoCorridaRepository : IRepository
+    public interface IHistoricoCorridaRepository : IRepository<HistoricoCorrida>
     {
         Task<HistoricoCorrida?> Get(int id);
         Task<HistoricoCorrida?> GetAggragate(int id);
-        Task<List<HistoricoCorrida>> GetAll(Filter filters);
+        Task<List<HistoricoCorrida>> GetAll();
         Task Delete(int id);
-        Task<HistoricoCorrida> Save(HistoricoCorrida registry);
+        Task<HistoricoCorrida> Save(HistoricoCorrida entity);
     }
 }
