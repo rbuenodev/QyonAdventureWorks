@@ -41,7 +41,7 @@ namespace Data.HistoricosCorrida
 
         public async Task<List<HistoricoCorrida>> GetAll()
         {
-            return await _dbContext.HistoricosCorrida.AsNoTracking().ToListAsync();
+            return await _dbContext.HistoricosCorrida.AsNoTracking().Include(p => p.PistaCorrida).Include(c => c.Competidor).ToListAsync();
         }
 
         public async Task<HistoricoCorrida> Save(HistoricoCorrida entity)
