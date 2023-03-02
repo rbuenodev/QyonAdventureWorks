@@ -1,3 +1,4 @@
+using API.DependenciesInjection;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -18,7 +19,18 @@ namespace API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            var connectionString = Configuration.GetValue<string>("ConnectionString");
             services.AddControllers();
+            services.RegisterDependencies(connectionString);
+
+            services.AddCors(policyBuilder =>
+                policyBuilder.AddDefaultPolicy(policy =>
+                    policy.AllowAnyHeader()
+                          .AllowAnyOrigin()
+                          .AllowAnyMethod()
+                          .WithOrigins("*")));
+            
+            services.AddMemoryCache();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -34,6 +46,8 @@ namespace API
             app.UseRouting();
 
             app.UseAuthorization();
+
+            app.UseCors(x => x.AllowAnyHeader().AllowAnyOrigin().AllowAnyMethod());
 
             app.UseEndpoints(endpoints =>
             {

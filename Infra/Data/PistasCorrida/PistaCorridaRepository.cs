@@ -25,7 +25,7 @@ namespace Data.PistasCorrida
             }
             else
             {
-                throw new Exception("Pista de Corrida não encontrada");
+                throw new Exception("Pista de corrida não encontrada");
             }
         }
 

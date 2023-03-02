@@ -25,7 +25,7 @@ namespace Data.HistoricosCorrida
             }
             else
             {
-                throw new Exception("Historico de Corrida não encontrado");
+                throw new Exception("Historico de corrida não encontrado");
             }
         }
 
