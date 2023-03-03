@@ -69,7 +69,7 @@ namespace Data.Migrations
 
                     b.HasIndex("PistaCorridaId");
 
-                    b.ToTable("HistoricosCorrida");
+                    b.ToTable("HistoricosCorrida");                    
                 });
 
             modelBuilder.Entity("Domain.PistasCorrida.Entities.PistaCorrida", b =>
@@ -99,7 +99,7 @@ namespace Data.Migrations
 
                     b.Navigation("Competidor");
 
-                    b.Navigation("PistaCorrida");
+                    b.Navigation("PistaCorrida");                    
                 });
 #pragma warning restore 612, 618
         }

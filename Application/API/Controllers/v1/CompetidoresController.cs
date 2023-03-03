@@ -95,7 +95,7 @@ namespace API.Controllers.v1
 
             _cache.Remove("competidorCache");
             _cache.Remove("competidorTempoMedioCache");
-            _cache.Remove("competidorSemCorridaCache");            
+            _cache.Remove("competidorSemCorridaCache");
 
             if (res.Message == "Competidor não encontrado") return NotFound(res);
 
@@ -125,10 +125,11 @@ namespace API.Controllers.v1
             return StatusCode(500);
         }
 
-        [HttpPut()]
-        public async Task<ActionResult<CompetidorResponse<ResultCompetidorDTO>>> PutCompetidor([FromBody] UpdateCompetidorDTO dto)
+        [HttpPut("{id}")]
+        public async Task<ActionResult<CompetidorResponse<ResultCompetidorDTO>>> PutCompetidor([FromRoute] int id, [FromBody] UpdateCompetidorDTO dto)
         {
             if (dto == null) return BadRequest();
+            dto.Id = id;
 
             var res = await _competidorService.UpdateCompetidor(dto);
             _cache.Remove("competidorCache");

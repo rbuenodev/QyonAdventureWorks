@@ -1,4 +1,5 @@
-﻿using Domain.Competidores.Entities;
+﻿using Data.HistoricosCorrida;
+using Domain.Competidores.Entities;
 using Domain.HistoricosCorrida.Entities;
 using Domain.PistasCorrida.Entities;
 using Microsoft.EntityFrameworkCore;

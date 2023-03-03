@@ -11,18 +11,18 @@ using System.Threading.Tasks;
 namespace API.Controllers.v1
 {
     [ApiController]
-    [Route("api/v1/historicoCorrida")]
-    public class HistoricosCorridaController:ControllerBase
+    [Route("api/v1/historicoCorridas")]
+    public class HistoricosCorridaController : ControllerBase
     {
         private readonly ILogger<HistoricosCorridaController> _logger;
         private readonly IHistoricoCorridaService _historicoCorridaService;
         private readonly IMemoryCache _cache;
 
-        public HistoricosCorridaController(ILogger<HistoricosCorridaController> logger,IHistoricoCorridaService historicoCorridaService, IMemoryCache cache)
+        public HistoricosCorridaController(ILogger<HistoricosCorridaController> logger, IHistoricoCorridaService historicoCorridaService, IMemoryCache cache)
         {
-            _logger = logger;   
+            _logger = logger;
             _cache = cache;
-            _historicoCorridaService = historicoCorridaService;            
+            _historicoCorridaService = historicoCorridaService;
         }
 
 
@@ -54,9 +54,9 @@ namespace API.Controllers.v1
             var res = await _historicoCorridaService.GetHistoricoCorridaById(id);
 
             _cache.Remove("historicoCorridaCache");
-            
 
-            if (res.Message == "Historico corrida não encontrado") return NotFound(res);
+
+            if (res.Message == "Historico de corrida não encontrado") return NotFound(res);
 
             if (res.HasErrors) return StatusCode(500, res);
 
@@ -82,13 +82,14 @@ namespace API.Controllers.v1
             return StatusCode(500);
         }
 
-        [HttpPut()]
-        public async Task<ActionResult<HistoricoCorridaResponse<ResultHistoricoCorridaDTO>>> PutHistoricoCorrida([FromBody] UpdateHistoricoCorridaDTO dto)
+        [HttpPut("{id}")]
+        public async Task<ActionResult<HistoricoCorridaResponse<ResultHistoricoCorridaDTO>>> PutHistoricoCorrida([FromRoute] int id, [FromBody] UpdateHistoricoCorridaDTO dto)
         {
             if (dto == null) return BadRequest();
+            dto.Id = id;
 
             var res = await _historicoCorridaService.UpdateHistoricoCorrida(dto);
-            _cache.Remove("historicoCorridaCache");            
+            _cache.Remove("historicoCorridaCache");
 
             if (res.HasErrors) return StatusCode(500, res);
 

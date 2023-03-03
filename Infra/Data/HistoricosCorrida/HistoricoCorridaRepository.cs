@@ -49,7 +49,7 @@ namespace Data.HistoricosCorrida
             var existingEntity = _dbContext.HistoricosCorrida.FirstOrDefault(r => r.Id == entity.Id);
             if (existingEntity != null)
             {
-                return await Update(entity, existingEntity);
+                return await Update(existingEntity, entity);
             }
             else
             {
@@ -58,7 +58,9 @@ namespace Data.HistoricosCorrida
         }
         private async Task<HistoricoCorrida> Insert(HistoricoCorrida entity)
         {
-            _dbContext.HistoricosCorrida.Add(entity);
+            _dbContext.Competidores.Attach(entity.Competidor);
+            _dbContext.PistasCorrida.Attach(entity.PistaCorrida);
+            await _dbContext.HistoricosCorrida.AddAsync(entity);
             await _dbContext.SaveChangesAsync();
             return entity;
         }

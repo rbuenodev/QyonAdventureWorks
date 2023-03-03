@@ -10,6 +10,18 @@ namespace Domain.Competidores.Entities
         public decimal Peso { get; set; }
         public decimal Altura { get; set; }
 
+
+        private bool ValidateGenres(string genres)
+        {
+            switch (genres)
+            {
+                case "M": return true;
+                case "F": return true;
+                case "O": return true;
+                default:
+                    return false;
+            }
+        }
         private bool Validate()
         {
             var errors = "";
@@ -24,7 +36,7 @@ namespace Domain.Competidores.Entities
 
             if (string.IsNullOrEmpty(Sexo))
                 errors += "Sexo não pode ser vazio ;";
-            else if (Sexo != "M" || Sexo != "F" || Sexo != "O")
+            else if (!ValidateGenres(Sexo))
                 errors += "Sexo deve ser igual a M, F ou O";
 
             if (string.IsNullOrEmpty(Nome))

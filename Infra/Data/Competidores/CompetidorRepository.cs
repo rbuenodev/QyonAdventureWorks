@@ -63,7 +63,7 @@ namespace Data.Competidores
             var existingEntity = _dbContext.Competidores.FirstOrDefault(r => r.Id == entity.Id);
             if (existingEntity != null)
             {
-                return await Update(entity, existingEntity);
+                return await Update(existingEntity,entity);
             }
             else
             {

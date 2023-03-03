@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 namespace API.Controllers.v1
 {
     [ApiController]
-    [Route("v1/api/pistaCorrida")]
+    [Route("api/v1/pistasCorrida")]
     public class PistaCorridaController : ControllerBase
     {
 
@@ -77,7 +77,7 @@ namespace API.Controllers.v1
             _cache.Remove("pistaCorridaCache");
             _cache.Remove("pistaCorridaComUsoCache");
 
-            if (res.Message == "Pista corrida não encontrado") return NotFound(res);
+            if (res.Message == "Pista de corrida não encontrada") return NotFound(res);
 
             if (res.HasErrors) return StatusCode(500, res);
 
@@ -104,10 +104,11 @@ namespace API.Controllers.v1
             return StatusCode(500);
         }
 
-        [HttpPut()]
-        public async Task<ActionResult<PistaCorridaResponse<ResultPistaCorridaDTO>>> PutPistaCorrida([FromBody] UpdatePistaCorridaDTO dto)
+        [HttpPut("{id}")]
+        public async Task<ActionResult<PistaCorridaResponse<ResultPistaCorridaDTO>>> PutPistaCorrida([FromRoute] int id, [FromBody] UpdatePistaCorridaDTO dto)
         {
             if (dto == null) return BadRequest();
+            dto.Id = id;
 
             var res = await _pistaCorridaService.UpdatePistaCorrida(dto);
             _cache.Remove("pistaCorridaCache");
@@ -130,7 +131,7 @@ namespace API.Controllers.v1
             _cache.Remove("pistaCorridaCache");
             _cache.Remove("pistaCorridaComUsoCache");
 
-            if (res.Message == "Pista corrida não encontrado") return NotFound(res);
+            if (res.Message == "Pista de corrida não encontrada") return NotFound(res);
 
             if (res.HasErrors) return StatusCode(500, res);
 
