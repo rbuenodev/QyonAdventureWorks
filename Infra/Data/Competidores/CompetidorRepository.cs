@@ -20,15 +20,17 @@ namespace Data.Competidores
         public async Task<List<CompetidorTempoMedio>> GetCompetidorsWithAvarageTime()
         {
             var list = await (from c in _dbContext.Competidores.AsNoTracking()
-                        join h in _dbContext.HistoricosCorrida.AsNoTracking() on c.Id equals h.Competidor.Id into g
+                        join h in _dbContext.HistoricosCorrida.AsNoTracking() on c.Id equals h.Competidor.Id
+                        group h by new {c.Id, c.Nome, c.Altura,c.Peso,c.Sexo,c.TemperaturaMediaCorpo } into g
                         select new CompetidorTempoMedio
                         {
-                            Altura = c.Altura,
-                            Id = c.Id,
-                            Nome = c.Nome,
-                            Peso = c.Peso,
-                            Sexo = c.Sexo,
-                            TemperaturaMediaCorpo = g.Average(x => x.TempoGasto)
+                            Altura = g.Key.Altura,
+                            Id = g.Key.Id,
+                            Nome = g.Key.Nome,
+                            Peso = g.Key.Peso,
+                            Sexo = g.Key.Sexo,
+                            TemperaturaMediaCorpo = g.Key.TemperaturaMediaCorpo,
+                            TempoMedio= g.Average(x => x.TempoGasto)
                         }).ToListAsync();
 
             return list;

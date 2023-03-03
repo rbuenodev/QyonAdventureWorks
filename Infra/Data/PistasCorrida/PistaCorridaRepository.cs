@@ -56,7 +56,7 @@ namespace Data.PistasCorrida
         {
             var list = await (from p in _dbContext.PistasCorrida
                               join h in _dbContext.HistoricosCorrida on p.Id equals h.PistaCorrida.Id
-                              select new PistaCorrida { Id = p.Id, Descricao = p.Descricao }).ToListAsync();
+                              select new PistaCorrida { Id = p.Id, Descricao = p.Descricao }).Distinct().ToListAsync();
 
             return list;
         }

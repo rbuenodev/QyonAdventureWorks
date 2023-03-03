@@ -1,4 +1,5 @@
 ﻿using Domain.Competidores.ValueObjects;
+using System;
 
 namespace Service.Competidores.DTOs
 {
@@ -24,7 +25,7 @@ namespace Service.Competidores.DTOs
                 Altura = competidor.Altura,
                 Peso = competidor.Peso,
                 TemperaturaMediaCorpo = competidor.TemperaturaMediaCorpo,
-                TempoMedio = competidor.TempoMedio,
+                TempoMedio = Math.Round(competidor.TempoMedio,2),
             };
         }
     }

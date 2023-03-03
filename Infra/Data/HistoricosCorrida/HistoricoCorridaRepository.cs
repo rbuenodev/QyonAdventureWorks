@@ -66,7 +66,7 @@ namespace Data.HistoricosCorrida
         }
 
         private async Task<HistoricoCorrida> Update(HistoricoCorrida entity, HistoricoCorrida update)
-        {
+        {            
             _dbContext.Entry(entity).CurrentValues.SetValues(update);
             await _dbContext.SaveChangesAsync();
             return update;
